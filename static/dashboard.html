@@ -36,14 +36,40 @@
             top: 10px;
             right: 10px;
             z-index: 1000;
+            width: 60px;
+            height: 30px;
+            border-radius: 15px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .btn-toggle .toggle-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #212529;
+            transition: transform 0.3s;
+        }
+        body.dark-mode .btn-toggle {
+            background-color: #343a40;
+            border-color: #555;
+        }
+        body.dark-mode .btn-toggle .toggle-circle {
+            background-color: #f8f9fa;
+            transform: translateX(30px);
         }
     </style>
 </head>
 <body class="light-mode">
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Investment Analytics Dashboard</span>
-            <button class="btn btn-light btn-toggle" onclick="toggleMode()">Toggle Light/Dark Mode</button>
+            <span class="navbar-brand mb-0 h1">Analytics Dashboard</span>
         </div>
     </nav>
 
@@ -167,6 +193,10 @@
             </div>
         </div>
     </div>
+
+    <button class="btn-toggle" onclick="toggleMode()">
+        <div class="toggle-circle"></div>
+    </button>
 
     <script>
         function toggleMode() {

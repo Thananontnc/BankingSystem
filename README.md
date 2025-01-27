@@ -56,3 +56,7 @@ This project is developed as part of the Design Thinking Subject coursework.
 
 ## License
 This project is developed for educational purposes.
+Presented by 
+Thananon Chounudom 
+Prathomporn Bunjua
+Napatra Hanwari

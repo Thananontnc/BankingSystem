@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/Thananontnc/BankingSystem.git/utils"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -14,20 +15,20 @@ var DB *sql.DB
 func OpenDB() (*sql.DB, error) {
 	log.Printf("Attempting to connect to database...")
 	// Replace with your DB credentials
-	dsn := "root:Plai1412@tcp(localhost:3306)/bankingsystem?parseTime=true"
+	dsn := "root:password@tcp(localhost:3306)/bankingsystem?parseTime=true"
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		log.Printf("Failed to connect to database: %v", err)
 		return nil, err
 	}
-	
+
 	// Test the connection
 	err = db.Ping()
 	if err != nil {
 		log.Printf("Failed to ping database: %v", err)
 		return nil, err
 	}
-	
+
 	return db, nil
 }
 
@@ -46,18 +47,18 @@ func RegisterUser(db *sql.DB, email, hashedPassword, username string) error {
 		log.Printf("Error registering user: %v", err)
 		return err
 	}
-	
+
 	rowsAffected, err := result.RowsAffected()
 	if err != nil {
 		log.Printf("Error checking rows affected: %v", err)
 		return err
 	}
-	
+
 	if rowsAffected == 0 {
 		log.Printf("No rows were inserted")
 		return fmt.Errorf("no rows were inserted")
 	}
-	
+
 	return nil
 }
 
@@ -69,6 +70,7 @@ func ValidateUser(db *sql.DB, email, password string) bool {
 		log.Println("Error fetching user:", err)
 		return false
 	}
-	// Compare the provided password with the stored hashed password
-	return storedPassword == password // You should compare hashed passwords in a real scenario
+
+	// Use the secure password comparison function
+	return utils.ComparePasswords(storedPassword, password)
 }

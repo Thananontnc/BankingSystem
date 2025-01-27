@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/Thananontnc/BankingSystem.git/sqlhandle"
+	"github.com/Thananontnc/BankingSystem.git/utils"
 	_ "github.com/go-sql-driver/mysql"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -12,8 +13,6 @@ import (
 func SetupRoutes() {
 	// Serve static files (CSS, images)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-
-	// Serve HTML files for login, signup, and home pages
 
 	// Handle user registration
 	http.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
@@ -30,9 +29,9 @@ func SetupRoutes() {
 			email := r.FormValue("email")
 			password := r.FormValue("password")
 
-			// Hash the password
-			hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-			if err != nil {
+			// Hash the password using our utility function
+			hashedPassword := utils.HashPassword(password)
+			if hashedPassword == "" {
 				http.Error(w, "Error processing password", http.StatusInternalServerError)
 				return
 			}
@@ -47,7 +46,7 @@ func SetupRoutes() {
 
 			// Register the user
 			log.Printf("Attempting to register user with email: %s", email)
-			err = sqlhandle.RegisterUser(db, email, string(hashedPassword), username)
+			err = sqlhandle.RegisterUser(db, email, hashedPassword, username)
 			if err != nil {
 				log.Printf("Failed to register user: %v", err)
 				http.Error(w, "Error registering user", http.StatusInternalServerError)
@@ -75,6 +74,10 @@ func SetupRoutes() {
 		http.ServeFile(w, r, "static/Signup.html")
 	})
 
+	http.HandleFunc("/dashboard.html", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/dashboard.html")
+	})
+
 	http.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {
 			email := r.FormValue("email")
@@ -91,7 +94,7 @@ func SetupRoutes() {
 			// Validate user login
 			if sqlhandle.ValidateUser(db, email, password) {
 				// Successful login, redirect to homepage
-				http.Redirect(w, r, "/Index.html", http.StatusSeeOther)
+				http.Redirect(w, r, "/dashboard.html", http.StatusSeeOther)
 			} else {
 				// Invalid login credentials
 				http.Error(w, "Invalid login", http.StatusUnauthorized)

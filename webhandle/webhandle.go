@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/Thananontnc/BankingSystem.git/sqlhandle"
+	_ "github.com/go-sql-driver/mysql"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -13,6 +14,55 @@ func SetupRoutes() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	// Serve HTML files for login, signup, and home pages
+
+	// Handle user registration
+	http.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "POST" {
+			// Parse the form data
+			err := r.ParseForm()
+			if err != nil {
+				http.Error(w, "Error parsing form data", http.StatusBadRequest)
+				return
+			}
+
+			// Get form values
+			username := r.FormValue("username")
+			email := r.FormValue("email")
+			password := r.FormValue("password")
+
+			// Hash the password
+			hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+			if err != nil {
+				http.Error(w, "Error processing password", http.StatusInternalServerError)
+				return
+			}
+
+			// Open database connection
+			db, err := sqlhandle.OpenDB()
+			if err != nil {
+				http.Error(w, "Database connection error", http.StatusInternalServerError)
+				return
+			}
+			defer db.Close() // Close the specific connection
+
+			// Register the user
+			log.Printf("Attempting to register user with email: %s", email)
+			err = sqlhandle.RegisterUser(db, email, string(hashedPassword), username)
+			if err != nil {
+				log.Printf("Failed to register user: %v", err)
+				http.Error(w, "Error registering user", http.StatusInternalServerError)
+				return
+			}
+			log.Printf("Successfully registered user with email: %s", email)
+
+			// Redirect to login page after successful registration
+			http.Redirect(w, r, "/Login.html", http.StatusSeeOther)
+			return
+		} else {
+			// Serve the signup page for GET requests
+			http.ServeFile(w, r, "static/Signup.html")
+		}
+	})
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "static/Index.html")
 	})
@@ -54,8 +104,10 @@ func SetupRoutes() {
 
 	http.HandleFunc("/signup", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {
+
 			email := r.FormValue("email")
 			password := r.FormValue("password")
+			username := r.FormValue("username")
 
 			// Hash the password (never store plain text passwords)
 			hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
@@ -73,7 +125,7 @@ func SetupRoutes() {
 			defer db.Close()
 
 			// Register new user
-			if err := sqlhandle.RegisterUser(db, email, string(hashedPassword)); err != nil {
+			if err := sqlhandle.RegisterUser(db, email, string(hashedPassword), username); err != nil {
 				http.Error(w, "Registration failed", http.StatusInternalServerError)
 				return
 			}

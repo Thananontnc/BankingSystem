@@ -12,13 +12,22 @@ var DB *sql.DB
 
 // Connect TO Database
 func OpenDB() (*sql.DB, error) {
+	log.Printf("Attempting to connect to database...")
 	// Replace with your DB credentials
-	dsn := "username:password@tcp(localhost:3306)/yourdbname"
+	dsn := "root:Plai1412@tcp(localhost:3306)/bankingsystem?parseTime=true"
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		log.Fatal("Failed to connect to database:", err)
+		log.Printf("Failed to connect to database: %v", err)
 		return nil, err
 	}
+	
+	// Test the connection
+	err = db.Ping()
+	if err != nil {
+		log.Printf("Failed to ping database: %v", err)
+		return nil, err
+	}
+	
 	return db, nil
 }
 
@@ -30,19 +39,26 @@ func CloseDB() {
 	}
 }
 
-func InsertRegister(username, email, password, phone string) error {
-	query := "INSERT INTO users (username,email,password,phone) VALUES (?,?,?,?)"
-	_, err := DB.Exec(query, username, email, password, phone)
-	if err != nil {
-		return fmt.Errorf("fail insert register data to users table: %v", err)
-	}
-	return nil
-}
-
 // Function to insert a new user (signup)
-func RegisterUser(db *sql.DB, email, hashedPassword string) error {
-	_, err := db.Exec("INSERT INTO users (email, password) VALUES (?, ?)", email, hashedPassword)
-	return err
+func RegisterUser(db *sql.DB, email, hashedPassword, username string) error {
+	result, err := db.Exec("INSERT INTO users (email, password, full_name) VALUES (?, ?, ?)", email, hashedPassword, username)
+	if err != nil {
+		log.Printf("Error registering user: %v", err)
+		return err
+	}
+	
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		log.Printf("Error checking rows affected: %v", err)
+		return err
+	}
+	
+	if rowsAffected == 0 {
+		log.Printf("No rows were inserted")
+		return fmt.Errorf("no rows were inserted")
+	}
+	
+	return nil
 }
 
 // Function to validate user login (check email and password)

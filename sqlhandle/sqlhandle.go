@@ -35,3 +35,12 @@ func CloseDB() {
 		fmt.Println("Database connection Closed")
 	}
 }
+
+func InsertRegister(username, email, password, phone string) error {
+	query := "INSERT INTO users (username,email,password,phone) VALUES (?,?,?,?)"
+	_, err := DB.Exec(query, username, email, password, phone)
+	if err != nil {
+		return fmt.Errorf("fail insert register data to users table: %v", err)
+	}
+	return nil
+}

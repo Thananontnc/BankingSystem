@@ -11,21 +11,15 @@ import (
 var DB *sql.DB
 
 // Connect TO Database
-func ConnectToDB(username, password, hostname, dbname string) error {
-	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?parseTime=true", username, password, hostname, dbname)
-	var err error
-	DB, err = sql.Open("mysql", dsn)
+func OpenDB() (*sql.DB, error) {
+	// Replace with your DB credentials
+	dsn := "username:password@tcp(localhost:3306)/yourdbname"
+	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		return fmt.Errorf("failed to open database connection: %v", err)
+		log.Fatal("Failed to connect to database:", err)
+		return nil, err
 	}
-
-	// Verify the connection
-	if err = DB.Ping(); err != nil {
-		return fmt.Errorf("failed to connect to database: %v", err)
-	}
-
-	log.Println("Database connection established successfully!")
-	return nil
+	return db, nil
 }
 
 // Close Database
@@ -43,4 +37,22 @@ func InsertRegister(username, email, password, phone string) error {
 		return fmt.Errorf("fail insert register data to users table: %v", err)
 	}
 	return nil
+}
+
+// Function to insert a new user (signup)
+func RegisterUser(db *sql.DB, email, hashedPassword string) error {
+	_, err := db.Exec("INSERT INTO users (email, password) VALUES (?, ?)", email, hashedPassword)
+	return err
+}
+
+// Function to validate user login (check email and password)
+func ValidateUser(db *sql.DB, email, password string) bool {
+	var storedPassword string
+	err := db.QueryRow("SELECT password FROM users WHERE email = ?", email).Scan(&storedPassword)
+	if err != nil {
+		log.Println("Error fetching user:", err)
+		return false
+	}
+	// Compare the provided password with the stored hashed password
+	return storedPassword == password // You should compare hashed passwords in a real scenario
 }

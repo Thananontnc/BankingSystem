@@ -3,6 +3,9 @@ package webhandle
 import (
 	"log"
 	"net/http"
+
+	"github.com/Thananontnc/BankingSystem.git/sqlhandle"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func SetupRoutes() {
@@ -22,22 +25,63 @@ func SetupRoutes() {
 		http.ServeFile(w, r, "static/Signup.html")
 	})
 
-	// Handle form submissions for login
 	http.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {
-			// Process login (authentication)
-			http.Redirect(w, r, "/Index.html", http.StatusSeeOther)
+			email := r.FormValue("email")
+			password := r.FormValue("password")
+
+			// Open DB connection
+			db, err := sqlhandle.OpenDB()
+			if err != nil {
+				http.Error(w, "Database connection failed", http.StatusInternalServerError)
+				return
+			}
+			defer db.Close()
+
+			// Validate user login
+			if sqlhandle.ValidateUser(db, email, password) {
+				// Successful login, redirect to homepage
+				http.Redirect(w, r, "/Index.html", http.StatusSeeOther)
+			} else {
+				// Invalid login credentials
+				http.Error(w, "Invalid login", http.StatusUnauthorized)
+			}
 		} else {
+			// Serve the login page for GET requests
 			http.ServeFile(w, r, "static/Login.html")
 		}
 	})
 
-	// Handle form submissions for registration
 	http.HandleFunc("/signup", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {
-			// Process signup (create user)
-			http.Redirect(w, r, "/dashboard.html", http.StatusSeeOther)
+			email := r.FormValue("email")
+			password := r.FormValue("password")
+
+			// Hash the password (never store plain text passwords)
+			hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+			if err != nil {
+				http.Error(w, "Password hashing failed", http.StatusInternalServerError)
+				return
+			}
+
+			// Open DB connection
+			db, err := sqlhandle.OpenDB()
+			if err != nil {
+				http.Error(w, "Database connection failed", http.StatusInternalServerError)
+				return
+			}
+			defer db.Close()
+
+			// Register new user
+			if err := sqlhandle.RegisterUser(db, email, string(hashedPassword)); err != nil {
+				http.Error(w, "Registration failed", http.StatusInternalServerError)
+				return
+			}
+
+			// Redirect to login page after successful signup
+			http.Redirect(w, r, "/Login.html", http.StatusSeeOther)
 		} else {
+			// Serve the signup page for GET requests
 			http.ServeFile(w, r, "static/Signup.html")
 		}
 	})

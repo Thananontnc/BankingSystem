@@ -33,7 +33,7 @@ FinPluse is a web-based financial application developed as a final project for t
     ├── Signup.html    # Registration page
     └── dashboard.html # User dashboard
 ```
-
+ 
 ## Setup Instructions
 1. Clone the repository
 2. Ensure Go is installed on your system

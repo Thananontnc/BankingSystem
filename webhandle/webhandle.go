@@ -17,7 +17,6 @@ func SetupRoutes() {
 	// Handle user registration
 	http.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
-			// Parse the form data
 			err := r.ParseForm()
 			if err != nil {
 				http.Error(w, "Error parsing form data", http.StatusBadRequest)

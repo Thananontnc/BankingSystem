@@ -204,7 +204,6 @@
             document.body.classList.toggle('light-mode');
         }
 
-        // Performance Chart
         const performanceCtx = document.getElementById('performanceChart').getContext('2d');
         new Chart(performanceCtx, {
             type: 'line',
@@ -223,7 +222,6 @@
             }
         });
 
-        // Asset Allocation Chart
         const allocationCtx = document.getElementById('allocationChart').getContext('2d');
         new Chart(allocationCtx, {
             type: 'doughnut',

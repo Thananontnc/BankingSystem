@@ -14,8 +14,8 @@ var DB *sql.DB
 // Connect TO Database
 func OpenDB() (*sql.DB, error) {
 	log.Printf("Attempting to connect to database...")
-	// Replace with your DB credentials
-	dsn := "root:password@tcp(localhost:3306)/bankingsystem?parseTime=true"
+
+	dsn := "root:Plai1412@tcp(localhost:3306)/bankingsystem?parseTime=true"
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		log.Printf("Failed to connect to database: %v", err)

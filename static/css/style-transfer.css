@@ -1,0 +1,215 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+
+/*Nav*/
+
+.header {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+
+.navbar {
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    width: 100%;
+    z-index: 1000; 
+    display: flex;
+    width: 100%;
+    align-items: center;
+    size: 50px;
+    justify-content: flex-start;
+    background-color: #fff;
+}
+
+.logo {
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    color: #000000;
+    font-size: 25px;
+    padding-right: 70px;
+    
+}
+
+.nav-logo {
+    width: 50px;
+}
+
+.nav-link {
+    display: flex;
+    text-decoration: none;
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 8px;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    padding: 10px 8px;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.9)
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 20%;
+}
+
+.nav-item {
+    display: flex;
+}
+
+.nav-bth {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+    position: relative;
+    left: 30%;
+}
+
+.login-bth {
+    border: none;
+    outline: none;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 600;
+    font-weight: bold;
+    background: none;
+    padding: 15px 23px;
+}
+
+.login-bth:hover {
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 15px 23px;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.9)
+}
+.sign-bth {
+    border: none;
+    outline: none;
+    color: black;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 15px 23px;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.9)
+}
+
+.sign-bth:hover {
+    color: #fff;
+    background-color:black;
+}
+
+
+
+
+
+
+
+/*Body*/
+.big-container {
+    display: flex;
+    margin-top: 60px;
+}
+
+.send-text {
+    font-size: 50px;
+    margin-right: 200px;
+    margin-bottom: 20px;
+}
+.send-article {
+    font-size: 20px;
+}
+
+
+
+.colorful-background {
+    height:100%;
+    width:100%;
+    margin:0;
+    padding:0;
+
+}
+
+.big-container {
+    display: flex;
+    max-width: 100%;
+    max-height: 100%;
+    margin-left: 200px;
+}
+
+.text-container {
+    margin-top: 200px;
+}
+
+/*input*/
+
+.container-send {
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+}
+input {
+    font-size: 18px;
+    color: #000000;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgba(255, 255, 255, 0.4);
+    width: 500px;
+    height: 70px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 25px;
+    text-align: left;
+    margin-bottom:30px ;
+    outline: none;
+    caret-color:rgb(102, 19, 255);
+}
+
+.h1-text {
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: rgb(164, 231, 255);
+    color: black;
+    padding: 14px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+button:hover {
+    background-color: rgb(92, 212, 255);
+}

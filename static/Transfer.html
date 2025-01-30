@@ -4,85 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Money Transfer</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f2f5;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            max-width: 400px;
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-        h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #333;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #555;
-            font-weight: 500;
-        }
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 16px;
-            transition: all 0.2s ease;
-            background-color: #fafafa;
-        }
-        input:focus {
-            outline: none;
-            border-color: #007bff;
-            background-color: white;
-            box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background-color 0.2s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .colorful-background {
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/style-transfer.css" type="text/css">
 </head>
-<body>
-    <div class="colorful-background">
-        <div class="container">
-            <h1>Send Money</h1>
+<body class="main" style="background-color: rgb(164, 231, 255);">
+    <header class="head">
+        <nav class="navbar">
+            <a href="/static/Index.html" class="logo">
+                <img src="/static/images/logo.PNG" alt="" class="nav-logo">
+                <h2 class="logo-text">FinPluse</h2>
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Save</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Invest</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Manage</a>
+                </li>
+            </ul>
+            <ul class="nav-bth">
+                <a href="Login.html">
+                    <button class="login-bth">Log in</button>
+                </a>
+                <a href="Signup.html">
+                    <button class="sign-bth">Sign up</button>
+                </a>
+            </ul>
+        
+        </nav>
+    </header>
+    <div class="colorful-background">   
+        <div class="big-container">
+            <div class="text-container">
+            <h1 class="send-text">Save on feels<br>when sending money</h1>
+            <article class="send-article">Lorem ipsum dolor sit amet consectetur,<br>adipisicing elit. Nemo, dolorem? Repellendus <br>accusantium, voluptates mollitia deserunt <br>voluptatem sed laborum error modi.</article>
+        </div>
+        <div class="container-send">
+            <h1 class="h1-text">Send Money</h1>
             <form id="transferForm">
                 <div class="form-group">
                     <label for="sender">From</label>
@@ -104,6 +67,7 @@
             </form>
         </div>
     </div>
+</div>
 
     <script>
         document.getElementById('transferForm').addEventListener('submit', function(e) {
@@ -120,5 +84,5 @@
             this.reset();
         });
     </script>
-</body>
+
 </html>

@@ -161,7 +161,7 @@
 .get-app-bth:hover {
     border: none;
     outline: none;
-    color:while;
+    color: #fff;
     font-size: 20px;
     font-weight: 600;
     padding: 15px 23px;
@@ -189,6 +189,34 @@
     padding-top: 45%;
     font-weight: 700;
 }
+
+.transfer-bth {
+    border: none;
+    outline: none;
+    color:black;
+    font-size: 30px;
+    font-weight: 600;
+    padding: 25px 140px;
+    margin-top: 300px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.transfer-bth:hover {
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    padding: 25px 140px;
+    margin-top: 300px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: 0.3s;
+}
+
 
 /*Login/Signup*/
 .main-login {

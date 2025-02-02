@@ -1,7 +1,7 @@
 # FinPluse Web Application
 
 ## Project Overview
-FinPluse is a web-based financial application developed as a final project for the Design Thinking Subject. The application provides user authentication functionality and aims to deliver financial services through an intuitive web interface.
+FinPluse is a web-based financial application developed as a final project prototype for the Design Thinking Subject. The application provides user functionality and aims to deliver financial services through an intuitive web interface.
 
 ## Features
 - User Authentication System
@@ -53,6 +53,9 @@ This project is developed as part of the Design Thinking Subject coursework.
 - Advanced user dashboard
 - Transaction tracking
 - Financial analytics
+
+## Notes:
+- This is our first website that we have made first time. We are excited to learn more about Web Development.
 
 ## License
 This project is developed for educational purposes.

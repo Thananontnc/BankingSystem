@@ -1,4 +1,4 @@
-```markdown
+
 # FinPluse Web Application
 
 ## Project Overview

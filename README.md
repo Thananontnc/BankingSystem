@@ -56,8 +56,7 @@ This project is developed as part of the Design Thinking Subject coursework.
 
 ## Notes:
 - This is our first website that we have made first time. We are excited to learn more about Web Development.
-
-## License
+*****************
 This project is developed for educational purposes.
 Presented by 
 Thananon Chounudom 

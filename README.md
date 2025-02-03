@@ -1,4 +1,4 @@
-# FinPulse Project
+# BankingSystem Project
 
 ## Welcome! 👋
 

@@ -1,4 +1,4 @@
-# Web Development Learning Project
+# FinPulse Project
 
 ## Welcome! 👋
 

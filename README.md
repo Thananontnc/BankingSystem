@@ -1,7 +1,5 @@
 # BankingSystem Project
 
-## Welcome! 👋
-
 Thank you for visiting our project! This is our first venture into web development, and we're excited to share our learning journey with you.
 
 ## Project Overview
